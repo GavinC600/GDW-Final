@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,10 +9,13 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask ObjectLayer;
 
+
+
     //Player Movement
     public float playerSpeed;
     bool facingRight = true;
-
+    bool isWalking = false;
+    bool isFlip = false;
     Vector2 movementDir = new Vector2(0.0f, 0.0f);
 
     public float dashForce;
@@ -27,18 +31,21 @@ public class PlayerController : MonoBehaviour
     bool isVertical;
     bool isRight;
 
+    bool isDead = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         save = delayTime;
         animator = GetComponent<Animator>();
+        Time.timeScale = 1;
     }
 
     void Update()
     {
         Debug.DrawRay(transform.position, movementDir * dashForce, Color.green);
 
-        Debug.Log("able to dash is " + AbleToDash());
+        Debug.Log(isWalking);
 
         MovePlayer();
 
@@ -46,12 +53,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             SwitchGravity();
-            animator.SetBool("IsFlip", true);
+            isFlip = true;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && AbleToDash())
         {
-            Debug.Log("pressed shift");
+
             Dash();
         }
     }
@@ -73,7 +80,7 @@ public class PlayerController : MonoBehaviour
                 {
                     FaceDirection();
                 }
-                animator.SetBool("IsWalking",true);
+                isWalking = true;
             }
             else if (Input.GetKey(KeyCode.D))
             {
@@ -83,11 +90,11 @@ public class PlayerController : MonoBehaviour
                 {
                     FaceDirection();
                 }
-                animator.SetBool("IsWalking", true);
+                isWalking = true;
             }
             else
             {
-                animator.SetBool("IsWalking", false);
+                isWalking = false;
             }
         }
         //Vertical (right) player movement
@@ -101,7 +108,7 @@ public class PlayerController : MonoBehaviour
                 {
                     FaceDirection();
                 }
-                animator.SetBool("IsWalking", true);
+                isWalking = true;
             }
             else if (Input.GetKey(KeyCode.D))
             {
@@ -111,11 +118,11 @@ public class PlayerController : MonoBehaviour
                 {
                     FaceDirection();
                 }
-                animator.SetBool("IsWalking", true);
+                isWalking = true;
             }
             else
             {
-                animator.SetBool("IsWalking", false);
+                isWalking = false;
             }
         }
         //Vertical (left) player movement
@@ -210,11 +217,17 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = true;
 
-        animator.SetBool("IsFlip", false);
+        isFlip = false;
 
         if (collision.gameObject.CompareTag("platform"))
         {
             transform.parent = collision.gameObject.transform;
+        }
+
+        if (collision.gameObject.CompareTag("BulletBilly"))
+        {
+            Destroy(collision.gameObject);
+            isDead = true;
         }
     }
 
@@ -253,7 +266,7 @@ public class PlayerController : MonoBehaviour
 
     public void Dash()
     {
-        Debug.Log("dash");
+
         currentPos += movementDir * dashForce;
         transform.position = currentPos;
         ResetTimer();
@@ -301,5 +314,28 @@ public class PlayerController : MonoBehaviour
     private void updateScammerValue()
     {
         currentPos = new Vector2(transform.position.x, transform.position.y);
+    }
+
+
+    public bool GetIsWalking()
+    {
+        return isWalking;
+    }
+    public bool GetIsFlip()
+    {
+        return isFlip;
+    }
+    private void OnGUI()
+    {
+        if (isDead)
+        {
+            Time.timeScale = 0;
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 120), "YOU DIED!"))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+
+            }
+        }
     }
 }
