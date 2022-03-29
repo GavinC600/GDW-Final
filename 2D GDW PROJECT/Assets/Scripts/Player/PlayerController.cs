@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        save = delayTime;
         animator = GetComponent<Animator>();
+        save = delayTime;
         Time.timeScale = 1;
     }
 
@@ -213,57 +213,6 @@ public class PlayerController : MonoBehaviour
         top = !top;
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        isGrounded = true;
-
-        isFlip = false;
-
-        if (collision.gameObject.CompareTag("platform"))
-        {
-            transform.parent = collision.gameObject.transform;
-        }
-
-        if (collision.gameObject.CompareTag("BulletBilly"))
-        {
-            Destroy(collision.gameObject);
-            isDead = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("platform"))
-        {
-            transform.parent = null;
-        }
-    }
-
-    public bool GetIsGrounded()
-    {
-        return isGrounded;
-    }
-
-    public bool GetIsVertical()
-    {
-        return isVertical;
-    }
-
-    public void SetIsVertical(bool vertical)
-    {
-        isVertical = vertical;
-    }
-
-    public bool GetIsRight()
-    {
-        return isRight;
-    }
-
-    public void SetIsRight(bool right)
-    {
-        isRight = right;
-    }
-
     public void Dash()
     {
 
@@ -316,6 +265,30 @@ public class PlayerController : MonoBehaviour
         currentPos = new Vector2(transform.position.x, transform.position.y);
     }
 
+    public bool GetIsGrounded()
+    {
+        return isGrounded;
+    }
+
+    public bool GetIsVertical()
+    {
+        return isVertical;
+    }
+
+    public void SetIsVertical(bool vertical)
+    {
+        isVertical = vertical;
+    }
+
+    public bool GetIsRight()
+    {
+        return isRight;
+    }
+
+    public void SetIsRight(bool right)
+    {
+        isRight = right;
+    }
 
     public bool GetIsWalking()
     {
@@ -325,16 +298,43 @@ public class PlayerController : MonoBehaviour
     {
         return isFlip;
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        isGrounded = true;
+        isFlip = false;
+
+        if (collision.gameObject.CompareTag("platform"))
+        {
+            transform.parent = collision.gameObject.transform;
+        }
+
+        if (collision.gameObject.CompareTag("BulletBilly"))
+        {
+            Destroy(collision.gameObject);
+            isDead = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("platform"))
+        {
+            transform.parent = null;
+        }
+    }
+
     private void OnGUI()
     {
         if (isDead)
         {
             Time.timeScale = 0;
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 120), "YOU DIED!"))
+
+            GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
+            buttonStyle.fontSize = 50;
+            if (GUI.Button(new Rect(Screen.width / 2 - 350, Screen.height / 2 - 210, 700, 420), "YOU DIED!\n\nClick to Restart", buttonStyle))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-
             }
         }
     }
