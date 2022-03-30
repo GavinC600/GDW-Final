@@ -45,8 +45,9 @@ public class PlayerController : MonoBehaviour
     {
         Debug.DrawRay(transform.position, movementDir * dashForce, Color.green);
 
-        Debug.Log(isWalking);
-
+        Debug.Log("is walkin is" + isWalking);
+        Debug.Log("is flip is " + isFlip);
+        
         MovePlayer();
 
         //Check for Switch Gravity Input

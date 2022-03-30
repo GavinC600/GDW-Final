@@ -34,7 +34,7 @@ public class AnimController : MonoBehaviour
     {
         if (playerC.GetIsWalking())
         {
-            ChangeAnim(walk);
+            Animator.SetBool("IsWalking", true);
         }
         else
         {
@@ -46,7 +46,11 @@ public class AnimController : MonoBehaviour
     {
         if (playerC.GetIsFlip())
         {
-            ChangeAnim(flip);
+            Animator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            Animator.SetBool("IsWalking", false);
         }
     }
 
@@ -54,23 +58,19 @@ public class AnimController : MonoBehaviour
     {
         if (!playerC.GetIsWalking())
         {
-            ChangeAnim(idle);
-            Debug.Log("hii");
+            Animator.SetBool("IsWalking", true);
         }
     }
 
-    void ChangeAnim(string incomingAnim)
-    {
-        if (incomingAnim == animPlaying)
-        {
-            return;
-        }
+    //void ChangeAnim(string incomingAnim)
+    //{
+    //    if (incomingAnim == animPlaying)
+    //    {
+    //        return;
+    //    }
 
-        Animator.Play(incomingAnim);
+    //    Animator.Play(incomingAnim);
 
-        animPlaying = incomingAnim;
-
-
-
-    }
+    //    animPlaying = incomingAnim;
+    //}
 }
