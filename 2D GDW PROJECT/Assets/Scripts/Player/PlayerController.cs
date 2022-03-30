@@ -147,7 +147,6 @@ public class PlayerController : MonoBehaviour
                     FaceDirection();
                 }
             }
-
         }
         rb.velocity = movementDir * (playerSpeed);
     }
