@@ -27,6 +27,8 @@ public class AnimController : MonoBehaviour
         CheckWalk();
         CheckSwitch();
         CheckIdle();
+        Debug.Log("getIsWalking " + playerC.GetIsWalking());
+        Debug.Log("getIsFlip " + playerC.GetIsFlip());
     }
 
 
@@ -46,11 +48,11 @@ public class AnimController : MonoBehaviour
     {
         if (playerC.GetIsFlip())
         {
-            Animator.SetBool("IsWalking", true);
+            Animator.SetBool("IsFlip", true);
         }
         else
         {
-            Animator.SetBool("IsWalking", false);
+            Animator.SetBool("IsFlip", false);
         }
     }
 
@@ -58,7 +60,15 @@ public class AnimController : MonoBehaviour
     {
         if (!playerC.GetIsWalking())
         {
-            Animator.SetBool("IsWalking", true);
+            Animator.SetBool("IsWalking", false);
+        }
+    }
+
+    void checkIfDead()
+    {
+        if (playerC.GetIsDead())
+        {
+            Animator.SetBool("IsDead", true);
         }
     }
 

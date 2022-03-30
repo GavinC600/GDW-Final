@@ -137,6 +137,7 @@ public class PlayerController : MonoBehaviour
                 {
                     FaceDirection();
                 }
+                isWalking = true;
             }
             else if (Input.GetKey(KeyCode.A))
             {
@@ -146,6 +147,11 @@ public class PlayerController : MonoBehaviour
                 {
                     FaceDirection();
                 }
+                isWalking = true;
+            }
+            else
+            {
+                isWalking = false;
             }
         }
         rb.velocity = movementDir * (playerSpeed);
@@ -280,6 +286,10 @@ public class PlayerController : MonoBehaviour
         isVertical = vertical;
     }
 
+    public bool GetIsDead()
+    {
+        return isDead;
+    }
     public bool GetIsRight()
     {
         return isRight;
