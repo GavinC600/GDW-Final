@@ -27,8 +27,7 @@ public class AnimController : MonoBehaviour
         CheckWalk();
         CheckSwitch();
         CheckIdle();
-        Debug.Log("getIsWalking " + playerC.GetIsWalking());
-        Debug.Log("getIsFlip " + playerC.GetIsFlip());
+        
     }
 
 

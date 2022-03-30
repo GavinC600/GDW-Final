@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     bool isVertical;
     bool isRight;
 
+    bool GameRunning = true;
     bool isDead = false;
 
     void Start()
@@ -39,14 +40,14 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         save = delayTime;
         Time.timeScale = 1;
+        GameRunning = true;
     }
 
     void Update()
     {
         Debug.DrawRay(transform.position, movementDir * dashForce, Color.green);
 
-        Debug.Log("is walkin is" + isWalking);
-        Debug.Log("is flip is " + isFlip);
+        Debug.Log("isrunning " + GameRunning);
         
         MovePlayer();
 
@@ -271,6 +272,10 @@ public class PlayerController : MonoBehaviour
         currentPos = new Vector2(transform.position.x, transform.position.y);
     }
 
+    public bool GetIsRunning()
+    {
+        return GameRunning;
+    }
     public bool GetIsGrounded()
     {
         return isGrounded;
@@ -338,7 +343,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead)
         {
-            Time.timeScale = 0;
+            GameRunning = false;
 
             GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
             buttonStyle.fontSize = 50;

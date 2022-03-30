@@ -6,7 +6,9 @@ public class Turret : MonoBehaviour
 {
     public float detectRange;
 
-    public Transform player;
+    public GameObject player;
+
+    Transform playerTran;
 
     bool detected;
 
@@ -25,17 +27,23 @@ public class Turret : MonoBehaviour
 
     public float fireRate;
 
+    bool canShoot = true;
+
     float timeTilNextShot = 0;
 
     private void Awake()
     {
         SpriteRenderer lightColor = light.GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 playerPos = player.position;
+        canShoot = player.GetComponent<PlayerController>().GetIsRunning();
+
+
+        Vector2 playerPos = playerTran.position ;
 
         direction = playerPos - (Vector2)transform.position;
 
@@ -68,7 +76,10 @@ public class Turret : MonoBehaviour
                 if (Time.time > timeTilNextShot)
                 {
                     timeTilNextShot = Time.time + 1 / fireRate;
-                    Shoot();
+                    if (canShoot) 
+                    {
+                        Shoot();
+                    }
                 }
             }
         }
@@ -86,4 +97,6 @@ public class Turret : MonoBehaviour
         bulletPrefab.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed);
          
     }
+
+
 }
