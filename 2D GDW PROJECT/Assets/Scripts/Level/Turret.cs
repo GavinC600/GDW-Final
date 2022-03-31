@@ -8,16 +8,13 @@ public class Turret : MonoBehaviour
 
     public GameObject player;
 
-    Transform playerTran;
+    public Transform playerTran;
 
     bool detected;
 
     Vector2 direction;
 
     public GameObject barrel;
-
-    public GameObject light;
-    SpriteRenderer lightColor;
 
     public Transform gunPos;
 
@@ -31,19 +28,13 @@ public class Turret : MonoBehaviour
 
     float timeTilNextShot = 0;
 
-    private void Awake()
-    {
-        SpriteRenderer lightColor = light.GetComponent<SpriteRenderer>();
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         canShoot = player.GetComponent<PlayerController>().GetIsRunning();
 
-
-        Vector2 playerPos = playerTran.position ;
+        Vector2 playerPos = playerTran.position;
 
         direction = playerPos - (Vector2)transform.position;
 
@@ -56,8 +47,6 @@ public class Turret : MonoBehaviour
                 if (detected == false)
                 {
                     detected = true;
-                    //lightColor.color = Color.red;
-                    light.GetComponent<SpriteRenderer>().color = Color.red;
                 }
             }
             else
@@ -65,8 +54,6 @@ public class Turret : MonoBehaviour
                 if (detected == true)
                 {
                     detected = false;
-                    //lightColor.color = Color.red;
-                    light.GetComponent<SpriteRenderer>().color = Color.green;
                 }
             }
 
@@ -92,11 +79,8 @@ public class Turret : MonoBehaviour
 
     private void Shoot()
     {
-       GameObject bulletPrefab = Instantiate(bullet, gunPos.position,Quaternion.identity);
+       GameObject bulletPrefab = Instantiate(bullet, gunPos.position, Quaternion.identity);
 
         bulletPrefab.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed);
-         
     }
-
-
 }

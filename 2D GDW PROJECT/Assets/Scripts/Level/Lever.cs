@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Lever : MonoBehaviour
 {
-    public bool isToggled;
+    bool isToggled = true;
     bool canInteract;
     public GameObject doorObject;
 
@@ -23,7 +23,8 @@ public class Lever : MonoBehaviour
             isToggled = !isToggled;
             doorObject.SetActive(isToggled);
         }
-        if (isToggled)
+
+        /*if (isToggled)
         {
             SpriteRenderer.color = Color.green;
         }
@@ -35,7 +36,7 @@ public class Lever : MonoBehaviour
         if (canInteract)
         {
             SpriteRenderer.color = Color.yellow;
-        }
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D leverBox)

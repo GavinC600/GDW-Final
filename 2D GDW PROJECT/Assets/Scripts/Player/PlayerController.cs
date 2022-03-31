@@ -9,11 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask ObjectLayer;
 
-
-
     //Player Movement
     [SerializeField] private float playerSpeed;
-    public float newPlayerSpeed;
     bool facingRight = true;
     bool isWalking = false;
     bool isFlip = false;
@@ -42,14 +39,11 @@ public class PlayerController : MonoBehaviour
         save = delayTime;
         Time.timeScale = 1;
         GameRunning = true;
-        playerSpeed = newPlayerSpeed;
     }
 
     void Update()
     {
         Debug.DrawRay(transform.position, movementDir * dashForce, Color.green);
-
-        Debug.Log("isrunning " + GameRunning);
         
         MovePlayer();
 
@@ -185,7 +179,7 @@ public class PlayerController : MonoBehaviour
         SwitchGravity();
         yield return new WaitForSeconds(0.05f);
 
-        playerSpeed = newPlayerSpeed;
+        playerSpeed = 10;
     }
 
     //Flip Player when they are on the roof
@@ -340,6 +334,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             isDead = true;
+            Time.timeScale = 0;
         }
     }
 
@@ -348,6 +343,15 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("platform"))
         {
             transform.parent = null;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Death"))
+        {
+            isDead = true;
+            Time.timeScale = 0;
         }
     }
 
@@ -362,6 +366,7 @@ public class PlayerController : MonoBehaviour
             if (GUI.Button(new Rect(Screen.width / 2 - 350, Screen.height / 2 - 210, 700, 420), "YOU DIED!\n\nClick to Restart", buttonStyle))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Time.timeScale = 1;
             }
         }
     }

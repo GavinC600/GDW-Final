@@ -30,6 +30,7 @@ public class AnimController : MonoBehaviour
         CheckWalk();
         CheckSwitch();
         CheckIdle();
+        CheckDead();
         
     }
 
@@ -67,7 +68,7 @@ public class AnimController : MonoBehaviour
         }
     }
 
-    void checkIfDead()
+    void CheckDead()
     {
         if (playerC.GetIsDead())
         {
