@@ -4,58 +4,88 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 5412697765066902346
-    second: Spike_1
+    second: Map Pieces SpriteSheet_0
   - first:
       213: -8540789579020440945
-    second: Spike_2
+    second: Map Pieces SpriteSheet_3
   - first:
       213: -470827534237249319
-    second: Spike_3
+    second: Map Pieces SpriteSheet_6
   - first:
       213: -8536987189007594053
-    second: Spike_4
+    second: Map Pieces SpriteSheet_9
   - first:
       213: 7605634906320167518
-    second: Spike_5
+    second: Map Pieces SpriteSheet_12
   - first:
       213: -7852635766597811618
-    second: Lever_On
+    second: Map Pieces SpriteSheet_15
   - first:
       213: -5442104605313676253
-    second: Wedge_1
+    second: Map Pieces SpriteSheet_16
   - first:
       213: -6432517266062907891
-    second: Wedge_2
+    second: Map Pieces SpriteSheet_17
   - first:
       213: 8368574290369298759
-    second: Wedge_3
+    second: Map Pieces SpriteSheet_18
   - first:
       213: 2961829307603828971
-    second: Wedge_4
+    second: Map Pieces SpriteSheet_19
   - first:
       213: 6473527481610271650
-    second: Lever_Off
+    second: Map Pieces SpriteSheet_20
   - first:
       213: 7282733053282271816
-    second: Door_Off
+    second: Map Pieces SpriteSheet_21
   - first:
       213: 4571073404499095517
-    second: Door_On
+    second: Map Pieces SpriteSheet_22
   - first:
       213: -6384854187102049544
-    second: Laser_1
+    second: Map Pieces SpriteSheet_23
   - first:
       213: -2238161717214210306
-    second: Laser_2
+    second: Map Pieces SpriteSheet_24
   - first:
       213: 3400937089817859502
-    second: Laser_3
+    second: Map Pieces SpriteSheet_25
   - first:
       213: -3462115073720026338
-    second: Laser_4
+    second: Map Pieces SpriteSheet_26
   - first:
       213: -4155270823627589298
-    second: Laser_5
+    second: Map Pieces SpriteSheet_27
+  - first:
+      213: -4552459908235659749
+    second: Map Pieces SpriteSheet_1
+  - first:
+      213: 4250854502215834488
+    second: Map Pieces SpriteSheet_2
+  - first:
+      213: 4703641734658693163
+    second: Map Pieces SpriteSheet_4
+  - first:
+      213: -2218150253663897357
+    second: Map Pieces SpriteSheet_5
+  - first:
+      213: -6802341846957507540
+    second: Map Pieces SpriteSheet_7
+  - first:
+      213: -5877487874765930900
+    second: Map Pieces SpriteSheet_8
+  - first:
+      213: -2118475239105713696
+    second: Map Pieces SpriteSheet_10
+  - first:
+      213: 2667342150542351718
+    second: Map Pieces SpriteSheet_11
+  - first:
+      213: -996375034563894159
+    second: Map Pieces SpriteSheet_13
+  - first:
+      213: 2795464205877448515
+    second: Map Pieces SpriteSheet_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -145,12 +175,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Spike_1
+      name: Map Pieces SpriteSheet_0
       rect:
         serializedVersion: 2
         x: 4
         y: 132
-        width: 30
+        width: 29
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -166,7 +196,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spike_2
+      name: Map Pieces SpriteSheet_3
       rect:
         serializedVersion: 2
         x: 42
@@ -187,7 +217,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spike_3
+      name: Map Pieces SpriteSheet_6
       rect:
         serializedVersion: 2
         x: 79
@@ -208,7 +238,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spike_4
+      name: Map Pieces SpriteSheet_9
       rect:
         serializedVersion: 2
         x: 117
@@ -229,7 +259,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spike_5
+      name: Map Pieces SpriteSheet_12
       rect:
         serializedVersion: 2
         x: 157
@@ -250,15 +280,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lever_On
+      name: Map Pieces SpriteSheet_15
       rect:
         serializedVersion: 2
         x: 6
         y: 96
         width: 22
         height: 20
-      alignment: 9
-      pivot: {x: 0.5, y: 0.7}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -271,11 +301,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wedge_1
+      name: Map Pieces SpriteSheet_16
       rect:
         serializedVersion: 2
         x: 42
-        y: 85
+        y: 84
         width: 32
         height: 32
       alignment: 0
@@ -292,7 +322,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wedge_2
+      name: Map Pieces SpriteSheet_17
       rect:
         serializedVersion: 2
         x: 79
@@ -313,7 +343,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wedge_3
+      name: Map Pieces SpriteSheet_18
       rect:
         serializedVersion: 2
         x: 117
@@ -334,7 +364,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wedge_4
+      name: Map Pieces SpriteSheet_19
       rect:
         serializedVersion: 2
         x: 155
@@ -355,15 +385,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lever_Off
+      name: Map Pieces SpriteSheet_20
       rect:
         serializedVersion: 2
         x: 6
         y: 72
-        width: 22
+        width: 26
         height: 21
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2857143}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -376,13 +406,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door_Off
+      name: Map Pieces SpriteSheet_21
       rect:
         serializedVersion: 2
-        x: 120
-        y: 54
-        width: 24
-        height: 14
+        x: 117
+        y: 37
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -397,15 +427,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door_On
+      name: Map Pieces SpriteSheet_22
       rect:
         serializedVersion: 2
-        x: 155
-        y: 4
-        width: 24
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.890625}
+        x: 151
+        y: 36
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -418,7 +448,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Laser_1
+      name: Map Pieces SpriteSheet_23
       rect:
         serializedVersion: 2
         x: 12
@@ -439,7 +469,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Laser_2
+      name: Map Pieces SpriteSheet_24
       rect:
         serializedVersion: 2
         x: 28
@@ -460,7 +490,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Laser_3
+      name: Map Pieces SpriteSheet_25
       rect:
         serializedVersion: 2
         x: 44
@@ -481,7 +511,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Laser_4
+      name: Map Pieces SpriteSheet_26
       rect:
         serializedVersion: 2
         x: 65
@@ -502,7 +532,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Laser_5
+      name: Map Pieces SpriteSheet_27
       rect:
         serializedVersion: 2
         x: 90

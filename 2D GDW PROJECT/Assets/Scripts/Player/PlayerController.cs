@@ -24,16 +24,51 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     //Gravity Variables
-    bool top;
     bool isGrounded;
-    bool isVertical;
-    bool isRight;
+    bool flipCooldown = true;
 
     bool GameRunning = true;
     bool isDead = false;
 
+    public enum ERotationStates
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+
+    private ERotationStates rotationState;
+
+    public void ChangeGravity(ERotationStates newRotation)
+    {
+        //This is an enum
+        rotationState = newRotation;
+
+        switch (rotationState)
+        {
+            case ERotationStates.Up:
+                Physics2D.gravity = new Vector2(0, 9.81f);
+                transform.eulerAngles = new Vector3(0, 0, -180);
+                break;
+            case ERotationStates.Down:
+                Physics2D.gravity = new Vector2(0, -9.81f);
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                break;
+            case ERotationStates.Left:
+                Physics2D.gravity = new Vector2(9.81f, 0);
+                transform.eulerAngles = new Vector3(0, 0, 90);
+                break;
+            case ERotationStates.Right:
+                Physics2D.gravity = new Vector2(-9.81f, 0);
+                transform.eulerAngles = new Vector3(0, 0, -90);
+                break;
+        }
+    }
+
     void Start()
     {
+        ChangeGravity(ERotationStates.Down);
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         save = delayTime;
@@ -44,112 +79,151 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, movementDir * dashForce, Color.green);
-        
+
         MovePlayer();
 
-        //Check for Switch Gravity Input
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (flipCooldown)
         {
-            StartCoroutine(FlipDelay());
-            isFlip = true;
+            //Check for Switch Gravity Input
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                isFlip = true;
+                StartCoroutine(FlipDelay());
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && AbleToDash())
         {
-
             Dash();
         }
+    }
+
+    private IEnumerator FlipCooldown()
+    {
+        flipCooldown = false;
+        yield return new WaitForSeconds(1.5f);
+        flipCooldown = true;
     }
 
     //Player Movement
     private void MovePlayer()
     {
-        updateScammerValue();
         movementDir = new Vector2(0f, 0f);
 
-        //Horizontal player movement
-        if (!isVertical)
+        switch (rotationState)
         {
-            if (Input.GetKey(KeyCode.A))
-            {
-                movementDir += new Vector2(-1.0f, 0.0f);
+            // player movement for when they are on the ground
+            case ERotationStates.Down:
 
-                if (facingRight)
+                if (Input.GetKey(KeyCode.A))
                 {
-                    FaceDirection();
-                }
-                isWalking = true;
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                movementDir += new Vector2(1.0f, 0.0f);
+                    movementDir += new Vector2(-1.0f, 0.0f);
 
-                if (!facingRight)
-                {
-                    FaceDirection();
+                    if (facingRight)
+                    {
+                        FaceDirection();
+                    }
+                    isWalking = true;
                 }
-                isWalking = true;
-            }
-            else
-            {
-                isWalking = false;
-            }
-        }
-        //Vertical (right) player movement
-        if (isVertical && isRight)
-        {
-            if (Input.GetKey(KeyCode.A))
-            {
-                movementDir += new Vector2(0.0f, -1.0f);
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    movementDir += new Vector2(1.0f, 0.0f);
 
-                if (facingRight)
-                {
-                    FaceDirection();
+                    if (!facingRight)
+                    {
+                        FaceDirection();
+                    }
+                    isWalking = true;
                 }
-                isWalking = true;
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                movementDir += new Vector2(0.0f, 1.0f);
+                else
+                {
+                    isWalking = false;
+                }
+                break;
+            // player movement for when they are on the roof
+            case ERotationStates.Up:
 
-                if (!facingRight)
+                if (Input.GetKey(KeyCode.D))
                 {
-                    FaceDirection();
-                }
-                isWalking = true;
-            }
-            else
-            {
-                isWalking = false;
-            }
-        }
-        //Vertical (left) player movement
-        if (isVertical && !isRight)
-        {
-            if (Input.GetKey(KeyCode.D))
-            {
-                movementDir += new Vector2(0.0f, 1.0f);
+                    movementDir += new Vector2(1.0f, 0.0f);
 
-                if (facingRight)
-                {
-                    FaceDirection();
+                    if (facingRight)
+                    {
+                        FaceDirection();
+                    }
+                    isWalking = true;
                 }
-                isWalking = true;
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                movementDir += new Vector2(0.0f, -1.0f);
+                else if (Input.GetKey(KeyCode.A))
+                {
+                    movementDir += new Vector2(-1.0f, 0.0f);
 
-                if (!facingRight)
-                {
-                    FaceDirection();
+                    if (!facingRight)
+                    {
+                        FaceDirection();
+                    }
+                    isWalking = true;
                 }
-                isWalking = true;
-            }
-            else
-            {
-                isWalking = false;
-            }
+                else
+                {
+                    isWalking = false;
+                }
+                break;
+            // player movement for when tehy are on the right wall
+            case ERotationStates.Right:
+
+                if (Input.GetKey(KeyCode.A))
+                {
+                    movementDir += new Vector2(0.0f, -1.0f);
+
+                    if (facingRight)
+                    {
+                        FaceDirection();
+                    }
+                    isWalking = true;
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    movementDir += new Vector2(0.0f, 1.0f);
+
+                    if (!facingRight)
+                    {
+                        FaceDirection();
+                    }
+                    isWalking = true;
+                }
+                else
+                {
+                    isWalking = false;
+                }
+                break;
+            //Player movement for when they are on the left wall
+            case ERotationStates.Left:
+
+                if (Input.GetKey(KeyCode.D))
+                {
+                    movementDir += new Vector2(0.0f, 1.0f);
+
+                    if (facingRight)
+                    {
+                        FaceDirection();
+                    }
+                    isWalking = true;
+                }
+                else if (Input.GetKey(KeyCode.A))
+                {
+                    movementDir += new Vector2(0.0f, -1.0f);
+
+                    if (!facingRight)
+                    {
+                        FaceDirection();
+                    }
+                    isWalking = true;
+                }
+                else
+                {
+                    isWalking = false;
+                }
+                break;
         }
         rb.velocity = movementDir * (playerSpeed);
     }
@@ -166,69 +240,51 @@ public class PlayerController : MonoBehaviour
     //180 degree Gravity Switch
     void SwitchGravity()
     {
-        rb.gravityScale *= -1;
-        Flip();
+        ERotationStates temp = ERotationStates.Down;
+
+        switch (rotationState)
+        {
+            case ERotationStates.Up:
+                temp = ERotationStates.Down;
+
+                break;
+            case ERotationStates.Down:
+                temp = ERotationStates.Up;
+
+                break;
+            case ERotationStates.Left:
+                temp = ERotationStates.Right;
+
+                break;
+            case ERotationStates.Right:
+                temp = ERotationStates.Left;
+
+                break;
+        }
+
+        ChangeGravity(temp);
 
         isGrounded = false;
     }
 
     private IEnumerator FlipDelay()
     {
-        playerSpeed = 0;
-        yield return new WaitForSeconds(1);
-        SwitchGravity();
-        yield return new WaitForSeconds(0.05f);
+        if (isFlip)
+        {
+            StartCoroutine(FlipCooldown());
+            playerSpeed = 0;
+            yield return new WaitForSeconds(0.5f);
+            isGrounded = false;
+            SwitchGravity();
+            yield return new WaitForSeconds(0.05f);
 
-        playerSpeed = 10;
-    }
-
-    //Flip Player when they are on the roof
-    void Flip()
-    {
-        //Flip for horizontal
-        if (!isVertical)
-        {
-            if (!top)
-            {
-                transform.eulerAngles = new Vector3(0, 0, 180f);
-            }
-            else
-            {
-                transform.eulerAngles = Vector3.zero;
-            }
-        }
-        //Flip for vertical (right)
-        if (isVertical && isRight)
-        {
-            if (!top)
-            {
-                transform.eulerAngles = new Vector3(0, 0, -90f);
-            }
-            else
-            {
-                transform.eulerAngles = new Vector3(0, 0, 90f);
-            }
-        }
-        //Flip for vertical (left)
-        if (isVertical && !isRight)
-        {
-            if (!top)
-            {
-                transform.eulerAngles = new Vector3(0, 0, 90f);
-            }
-            else
-            {
-                transform.eulerAngles = new Vector3(0, 0, -90f);
-            }
+            playerSpeed = 10;
         }
 
-        facingRight = !facingRight;
-        top = !top;
     }
 
     public void Dash()
     {
-
         currentPos += movementDir * dashForce;
         transform.position = currentPos;
         ResetTimer();
@@ -273,11 +329,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void updateScammerValue()
-    {
-        currentPos = new Vector2(transform.position.x, transform.position.y);
-    }
-
     public bool GetIsRunning()
     {
         return GameRunning;
@@ -287,28 +338,9 @@ public class PlayerController : MonoBehaviour
         return isGrounded;
     }
 
-    public bool GetIsVertical()
-    {
-        return isVertical;
-    }
-
-    public void SetIsVertical(bool vertical)
-    {
-        isVertical = vertical;
-    }
-
     public bool GetIsDead()
     {
         return isDead;
-    }
-    public bool GetIsRight()
-    {
-        return isRight;
-    }
-
-    public void SetIsRight(bool right)
-    {
-        isRight = right;
     }
 
     public bool GetIsWalking()
@@ -365,6 +397,7 @@ public class PlayerController : MonoBehaviour
             buttonStyle.fontSize = 50;
             if (GUI.Button(new Rect(Screen.width / 2 - 350, Screen.height / 2 - 210, 700, 420), "YOU DIED!\n\nClick to Restart", buttonStyle))
             {
+                Physics2D.gravity = new Vector2(0, -9.81f);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 Time.timeScale = 1;
             }

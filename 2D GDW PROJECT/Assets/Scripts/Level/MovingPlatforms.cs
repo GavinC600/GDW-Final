@@ -27,6 +27,7 @@ public class MovingPlatforms : MonoBehaviour
                 num = 0;
             }
         }
+
         //moves the platform to the waypoint at num
         transform.position = Vector2.MoveTowards(transform.position, waypoints[num].transform.position, Time.deltaTime * speed);
     }
