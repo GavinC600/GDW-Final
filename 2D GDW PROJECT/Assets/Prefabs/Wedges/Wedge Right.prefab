@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
-  gravChangeRight: 1
+  changeRight: 0
+  changeToRoof: 0
 --- !u!61 &5702645539103779989
 BoxCollider2D:
   m_ObjectHideFlags: 0

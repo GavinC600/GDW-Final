@@ -13,6 +13,9 @@ public class AnimController : MonoBehaviour
     const string walk = "Walk";
     const string flip = "flip";
     const string idle = "idle";
+    const string dash = "dash";
+    const string falling = "falling";
+
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +57,7 @@ public class AnimController : MonoBehaviour
             Animator.SetBool("IsFlip", false);
         }
     }
+
 
     void CheckIdle()
     {

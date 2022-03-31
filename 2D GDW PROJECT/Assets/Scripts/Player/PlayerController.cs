@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
 
 
     //Player Movement
-    public float playerSpeed;
+    [SerializeField] private float playerSpeed;
+    public float newPlayerSpeed;
     bool facingRight = true;
     bool isWalking = false;
     bool isFlip = false;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
         save = delayTime;
         Time.timeScale = 1;
         GameRunning = true;
+        playerSpeed = newPlayerSpeed;
     }
 
     void Update()
@@ -54,7 +56,7 @@ public class PlayerController : MonoBehaviour
         //Check for Switch Gravity Input
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            SwitchGravity();
+            StartCoroutine(FlipDelay());
             isFlip = true;
         }
 
@@ -174,6 +176,16 @@ public class PlayerController : MonoBehaviour
         Flip();
 
         isGrounded = false;
+    }
+
+    private IEnumerator FlipDelay()
+    {
+        playerSpeed = 0;
+        yield return new WaitForSeconds(1);
+        SwitchGravity();
+        yield return new WaitForSeconds(0.05f);
+
+        playerSpeed = newPlayerSpeed;
     }
 
     //Flip Player when they are on the roof
